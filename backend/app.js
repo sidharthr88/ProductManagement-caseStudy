@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 
 const app = express();
-
+app.disable("x-powered-by");
 // CORS configuration
 app.use(
   cors({
