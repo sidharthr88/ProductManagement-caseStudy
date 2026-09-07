@@ -100,6 +100,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
 
+        // Vulnerability: no authentication/authorization check
         const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
         if (!deletedProduct) {
