@@ -1,12 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const authRoutes = require("./routes/authRoutes");
 
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 
 const app = express();
+
 app.disable("x-powered-by");
+
 // CORS configuration
 app.use(
   cors({
@@ -20,8 +23,11 @@ app.use(express.json());
 // Connect MongoDB
 connectDB();
 
+// Authentication routes
+app.use("/api/auth", authRoutes);
+
 // Product routes
-app.use("/products", productRoutes);
+app.use("/api/products", productRoutes);
 
 // Home route
 app.get("/", (req, res) => {

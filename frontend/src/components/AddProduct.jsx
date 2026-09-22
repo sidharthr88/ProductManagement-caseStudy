@@ -28,15 +28,22 @@ function AddProduct() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/products",
-        {
-          title: product.title,
-          price: Number(product.price),
-          image: product.image,
-          rating: Number(product.rating),
-        }
-      );
+      const token = localStorage.getItem("token");
+
+const response = await axios.post(
+  "/api/products",
+  {
+    title: product.title,
+    price: Number(product.price),
+    image: product.image,
+    rating: Number(product.rating),
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       console.log("Product Added:", response.data);
 

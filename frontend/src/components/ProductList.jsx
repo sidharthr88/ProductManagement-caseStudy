@@ -14,14 +14,23 @@ function ProductList() {
 
   useEffect(() => {
     if (source === "mongodb") {
+      const token = localStorage.getItem("token");
+
       axios
-        .get("http://localhost:5000/products")
+        .get("/api/products", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           console.log("MongoDB Products:", response.data);
           setProducts(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching MongoDB products:", error);
+          console.error(
+            "Error fetching MongoDB products:",
+            error
+          );
         });
     } else {
       axios
@@ -31,14 +40,16 @@ function ProductList() {
           setProducts(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching Fake Store products:", error);
+          console.error(
+            "Error fetching Fake Store products:",
+            error
+          );
         });
     }
   }, [source]);
 
   return (
     <Container sx={{ mt: 4 }}>
-
       <Typography variant="h4" sx={{ mb: 3 }}>
         {source === "mongodb"
           ? "MongoDB Products"
@@ -48,7 +59,9 @@ function ProductList() {
       <Button
         variant="contained"
         onClick={() =>
-          setSource(source === "mongodb" ? "fake" : "mongodb")
+          setSource(
+            source === "mongodb" ? "fake" : "mongodb"
+          )
         }
         sx={{ mb: 4 }}
       >
@@ -67,10 +80,8 @@ function ProductList() {
           </Grid>
         ))}
       </Grid>
-
     </Container>
   );
 }
 
 export default ProductList;
-
