@@ -128,9 +128,14 @@ router.delete(
     async (req, res) => {
         try {
 
+<<<<<<< HEAD
             const deletedProduct = await Product.findByIdAndDelete(
                 req.params.id
             );
+=======
+        // Vulnerability: no authentication/authorization check
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+>>>>>>> 74d9c8c5869b9427d6304120056ab980d77d4229
 
             if (!deletedProduct) {
                 return res.status(404).json({
